@@ -270,6 +270,18 @@ export default class RevisionService extends BaseService {
 		return this.importRevisionNote(note);
 	}
 
+	public async restoreNoteByRevisionId(noteId: string, revisionId: string): Promise<NoteEntity> {
+		const revisions = await Revision.allByType(BaseModel.TYPE_NOTE, noteId);
+		if (!revisions.length) throw new Error(`No revision for note "${noteId}"`);
+
+		const revisionIndex = revisions.findIndex((value) => value['id'] === revisionId);
+
+		if (revisionIndex === -1) throw new Error(`Revision with ID "${revisionId}" not found for note "${noteId}"`);
+
+		const note = await this.revisionNote(revisions, revisionIndex);
+		return this.importRevisionNote(note);
+	}
+
 	public restoreSuccessMessage(note: NoteEntity): string {
 		return _('The note "%s" has been successfully restored to the notebook "%s".', substrWithEllipsis(note.title, 0, 32), this.restoreFolderTitle());
 	}
