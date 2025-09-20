@@ -1541,6 +1541,7 @@ packages/lib/services/rest/routes/notes.test.js
 packages/lib/services/rest/routes/notes.js
 packages/lib/services/rest/routes/ping.js
 packages/lib/services/rest/routes/resources.js
+packages/lib/services/rest/routes/revisionNote.js
 packages/lib/services/rest/routes/revisions.js
 packages/lib/services/rest/routes/search.js
 packages/lib/services/rest/routes/tags.js
