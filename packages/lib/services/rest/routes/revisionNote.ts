@@ -5,7 +5,7 @@ import { ErrorNotFound } from '../utils/errors';
 import RevisionService from '../../RevisionService';
 
 // @todo: field filtering.
-export default async function(request: Request, id: string = null /* , link: string = null*/) {
+export default async function(_request: Request, id: string = null /* , link: string = null*/) {
 	const ModelClass = BaseItem.getClassByItemType(ModelType.Revision);
 
 	const revision = await ModelClass.load(id, { fields: ['id', 'item_id'] });
