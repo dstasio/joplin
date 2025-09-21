@@ -270,6 +270,7 @@ export default class RevisionService extends BaseService {
 		return this.importRevisionNote(note);
 	}
 
+	// @todo: this should not be called 'restore' and maybe it shouldn't even be here?
 	public async restoreNoteByRevisionId(noteId: string, revisionId: string): Promise<NoteEntity> {
 		const revisions = await Revision.allByType(BaseModel.TYPE_NOTE, noteId);
 		if (!revisions.length) throw new Error(`No revision for note "${noteId}"`);
@@ -279,7 +280,11 @@ export default class RevisionService extends BaseService {
 		if (revisionIndex === -1) throw new Error(`Revision with ID "${revisionId}" not found for note "${noteId}"`);
 
 		const note = await this.revisionNote(revisions, revisionIndex);
-		return this.importRevisionNote(note);
+
+		const requestedRevision = revisions[revisionIndex];
+		note['updated_time'] = requestedRevision['item_updated_time'];
+
+		return note;
 	}
 
 	public restoreSuccessMessage(note: NoteEntity): string {
