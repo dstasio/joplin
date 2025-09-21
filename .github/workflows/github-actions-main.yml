@@ -81,7 +81,7 @@ jobs:
           SERVER_REPOSITORY: joplin/server
           SERVER_TAG_PREFIX: server
         run: |
-          yarn install && cd packages/app-desktop && yarn dist --publish=never
+          yarn install && cd packages/app-desktop && yarn dist
 
       ##### - name: Publish Docker manifest
       #####   if: runner.os == 'Linux'
